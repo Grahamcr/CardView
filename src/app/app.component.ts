@@ -18,6 +18,8 @@ export class AppComponent {
 
   lastX: number = 0;
   lastY: number = 0;
+  lastDirection = 'n';
+  currentDirection = 'n';
 
   @HostListener('window:scroll', ['$event'])
     handleScroll(){
@@ -29,7 +31,6 @@ export class AppComponent {
     const currentX = window.pageXOffset
           || document.documentElement.scrollLeft
           || document.body.scrollLeft || 0;
-
 
     // Looks like we are scrolling up or down
     if(this.lastY !== currentY) {

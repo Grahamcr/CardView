@@ -15,7 +15,7 @@ export class ColumnHeadersComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.yScrollSub = this.scrollService.columnHeaderEmitter.subscribe(cord => {
-      this.currentY = cord.getY() + 'px';
+      this.currentY = (cord.getY() + 14) + 'px';
       this.currentX = '-' + cord.getX() + 'px';
       cord.getRelative() ?  this.handleVerticalScroll() : this.handleHorizontalScroll();
     });
@@ -30,12 +30,14 @@ export class ColumnHeadersComponent implements OnInit, OnDestroy {
     this.renderer.setStyle(this.elementRef.nativeElement, 'position', 'relative');
     this.renderer.setStyle(this.elementRef.nativeElement, 'top', this.currentY);
     this.renderer.setStyle(this.elementRef.nativeElement, 'z-index', '1');
+    this.renderer.setStyle(this.elementRef.nativeElement, 'margin-left', '0px');
   }
 
   handleVerticalScroll() {
+    console.log('Value of CurrentX: ' + this.currentX);
     this.renderer.setStyle(this.elementRef.nativeElement, 'position', 'fixed');
-    this.renderer.setStyle(this.elementRef.nativeElement, 'left', '0px');
-    this.renderer.setStyle(this.elementRef.nativeElement, 'z-index', '2');
+    this.renderer.setStyle(this.elementRef.nativeElement, 'margin-left', this.currentX);
+    this.renderer.setStyle(this.elementRef.nativeElement, 'z-index', '1');
     this.renderer.setStyle(this.elementRef.nativeElement, 'top', '0px');
   }
 }
