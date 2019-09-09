@@ -16,16 +16,16 @@ export class AppComponent {
 
   }
 
-  lastX: number = 0;
-  lastY: number = 0;
+  lastX = 0;
+  lastY = 0;
   lastDirection = 'n';
   currentDirection = 'n';
 
-  @HostListener('window:scroll', ['$event'])
-    handleScroll(){
+  @HostListener('window:scroll', [])
+    handleScroll() {
 
-    const currentY = window.pageYOffset 
-          || document.documentElement.scrollTop 
+    const currentY = window.pageYOffset
+          || document.documentElement.scrollTop
           || document.body.scrollTop || 0;
 
     const currentX = window.pageXOffset
@@ -33,14 +33,14 @@ export class AppComponent {
           || document.body.scrollLeft || 0;
 
     // Looks like we are scrolling up or down
-    if(this.lastY !== currentY) {
+    if (this.lastY !== currentY) {
       this.scrollService.scrollEmitter.next(new Cord(currentX, 0, true));
       this.scrollService.columnHeaderEmitter.next(new Cord(currentX, currentY, true));
       this.lastY = currentY;
     }
 
     // Looks like we are scrolling left or right
-    if(this.lastX !== currentX) {
+    if (this.lastX !== currentX) {
 
       // Let the page header know we need to move it
       this.scrollService.scrollEmitter.next(new Cord(currentX, currentY, false));
